@@ -32,7 +32,7 @@ const resolvers = {
         addUser: async (parent, args) => {
             const user = await User.create(args)
             const token = signToken(user);
-            return { token, user }; // what is this destructing from? 
+            return { token, user }; // what is this destructing from? data.token ?
         },
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
