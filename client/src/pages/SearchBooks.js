@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useMutation } from '@apollo/client';
+import { SAVE_BOOK } from '../utils/mutations';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
-import { saveBook, searchGoogleBooks } from '../utils/API';
+// import { saveBook, searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
 const SearchBooks = () => {
@@ -36,7 +38,8 @@ const SearchBooks = () => {
       }
 
       const { items } = await response.json();
-      console.log(items)
+      console.log(items) // added to see book data
+
       const bookData = items.map((book) => ({
         bookId: book.id,
         authors: book.volumeInfo.authors || ['No author to display'],
@@ -77,6 +80,15 @@ const SearchBooks = () => {
       console.error(err);
     }
   };
+
+  // const [saveBook, { error }] = useMutation(SAVE_BOOK, {
+  //   update(cache, { data: { saveBook } }) {
+  //     try {
+  //       const { books } = cache.readQuery({ query: })
+  //     }
+  //   }
+  // })
+
 
   return (
     <>
