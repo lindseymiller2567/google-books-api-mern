@@ -7,7 +7,7 @@ const resolvers = {
         me: async (parent, args, context) => {
             if (context.user) {
                 const userData = await User.findOne({ _id: context.user._id })
-                    .populate('savedBooks');
+                    .select('-_v');
 
                 return userData;
             }
@@ -17,7 +17,7 @@ const resolvers = {
         // find all users
         users: async () => {
             return User.find()
-                .populate('savedBooks')
+                //.populate('savedBooks')
         },
         // find single user by _id or username
         user: async (parent, { _id, username }) => {
